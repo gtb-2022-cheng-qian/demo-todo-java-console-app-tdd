@@ -3,9 +3,17 @@
  */
 package com.thoughtworks.tools;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-
+    @Test
+    void should_list_existing_tasks() {
+        final var result = new App().run();
+        Assertions.assertEquals(List.of("task 01","task 02"),result);
+    }
 }
