@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'demo-build-tools'
-include('app', 'webapp')
+include('app')
