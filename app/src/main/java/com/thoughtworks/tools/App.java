@@ -18,10 +18,18 @@ public class App {
         final List<Task> tasks = taskRepository.loadTasks();
 
         final List<String> result = new ArrayList<>();
-        result.add("#To be done");
-        for (var task : tasks) {
-            result.add(task.format());
-        }
+
+        formatSection(tasks, result, "# To be done", false);
+        formatSection(tasks, result, "# Completed", true);
+
         return result;
+    }
+
+    private void formatSection(List<Task> tasks, List<String> result, String title, boolean flag) {
+        result.add(title);
+        tasks.stream()
+                .filter(task -> flag == task.isCompleted)
+                .map(Task::format)
+                .forEach(result::add);
     }
 }
