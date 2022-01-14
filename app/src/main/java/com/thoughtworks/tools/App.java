@@ -16,20 +16,12 @@ public class App {
 
     public List<String> run() {
         final List<Task> tasks = taskRepository.loadTasks();
-
         final List<String> result = new ArrayList<>();
 
-        formatSection(tasks, result, "# To be done", false);
-        formatSection(tasks, result, "# Completed", true);
+        result.addAll(Section.tbd().format(tasks));
+        result.addAll(Section.completed().format(tasks));
 
         return result;
     }
 
-    private void formatSection(List<Task> tasks, List<String> result, String title, boolean flag) {
-        result.add(title);
-        tasks.stream()
-                .filter(task -> flag == task.isCompleted)
-                .map(Task::format)
-                .forEach(result::add);
-    }
 }

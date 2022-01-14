@@ -24,6 +24,6 @@ public class Task {
     }
 
     public boolean isCompleted(){
-        return true;
+        return isCompleted;
     }
 }
