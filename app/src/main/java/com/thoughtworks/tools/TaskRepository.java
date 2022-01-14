@@ -13,7 +13,7 @@ public class TaskRepository {
         for (int i = 0; i < lines.size(); i++) {
             final var id = i + 1;
             final var line = lines.get(i);//包括+和x标志
-            final var name = line;//不包括+和x标志
+            final var name = line.split(" ", 2)[1];//不包括+和x标志
             final var task = new Task(id, name);
             tasks.add(task);
         }
