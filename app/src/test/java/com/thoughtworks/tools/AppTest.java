@@ -13,9 +13,9 @@ class AppTest {
     void should_list_existing_tasks() {
         final var result = new App().run();
         Assertions.assertEquals(List.of(
-                "#To be done",
-                "1 task 01",
-                "2 task 02"),
+                        "#To be done",
+                        "1 task 01",
+                        "2 task 02"),
                 result);
     }
 }
