@@ -5,6 +5,7 @@ package com.thoughtworks.tools;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 public class App {
@@ -15,7 +16,10 @@ public class App {
 
     public List<String> run() {
         try {
-            return Files.readAllLines(Constants.TASK_FILE_PATH);
+            final List<String> result = new ArrayList<>();
+            result.add("#To be done");
+            result.addAll(Files.readAllLines(Constants.TASK_FILE_PATH));
+            return result;
         } catch (IOException e) {
             throw new todoCannotReadFileException();
         }
