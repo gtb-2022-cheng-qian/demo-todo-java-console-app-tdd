@@ -5,7 +5,9 @@ public class TaskFactory {
     }
 
     static Task createTask(int id, String line) {
-        final var name = line.split(" ", 2)[1];//不包括+和x标志
-        return new Task(id, name);
+        final var fields = line.split(" ", 2);//不包括+和x标志
+        final var name = fields[1];
+        final boolean isCompleted = fields[0].equals("x");
+        return new Task(id, name, isCompleted);
     }
 }
