@@ -18,7 +18,9 @@ public class App {
         final List<String> lines = readTaskLines();
         final List<String> result = new ArrayList<>();
         result.add("#To be done");
-        result.addAll(lines);
+        for (int i = 0; i < lines.size(); i++) {
+            result.add(String.format("%d %s", i + 1, lines.get(i)));
+        }
         return result;
     }
 
