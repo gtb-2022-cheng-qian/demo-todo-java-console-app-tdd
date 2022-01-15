@@ -11,6 +11,7 @@ import java.util.List;
 class AppTest {
     @Test
     void should_list_existing_tasks() {
+        // integration test
         final var result = new App().run();
         Assertions.assertEquals(List.of(
                         "# To be done",
