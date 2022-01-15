@@ -10,4 +10,10 @@ public class TaskFactoryTest {
         final var isCompleted = TaskFactory.createTask(1, "+ task 01").isCompleted();
         Assertions.assertFalse(isCompleted);
     }
+
+    @Test
+    void should_support_name_with_multiple_white_spaces() {
+        final var task = TaskFactory.createTask(1, "+    foo   bar   ");
+        Assertions.assertEquals("   foo   bar   ",task.getName());
+    }
 }
