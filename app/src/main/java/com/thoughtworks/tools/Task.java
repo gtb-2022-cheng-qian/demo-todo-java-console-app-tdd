@@ -1,8 +1,8 @@
 package com.thoughtworks.tools;
 
 public class Task {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
     public boolean isCompleted;
 
     public Task(int id, String name, boolean isCompleted) {
