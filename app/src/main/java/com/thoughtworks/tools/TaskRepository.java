@@ -20,7 +20,7 @@ public class TaskRepository {
         try {
             return Files.readAllLines(Constants.TASK_FILE_PATH);
         } catch (IOException e) {
-            throw new todoCannotReadFileException();
+            throw new TodoCannotReadFileException();
         }
     }
 }

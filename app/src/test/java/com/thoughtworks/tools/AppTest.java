@@ -22,4 +22,19 @@ class AppTest {
                         "4 task 04"),
                 result);
     }
+
+    @Test
+    void should_add_task_with_single_word_as_name() {
+        new App().run("add", "foobar");
+        final var result = new App().run();
+        Assertions.assertEquals(List.of(
+                        "# To be done",
+                        "1 task 01",
+                        "2 task 02",
+                        "5 foobar",
+                        "# Completed",
+                        "3 task 03",
+                        "4 task 04"),
+                result);
+    }
 }
