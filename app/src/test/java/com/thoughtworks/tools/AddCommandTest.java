@@ -11,12 +11,13 @@ public class AddCommandTest {
 
     @BeforeEach
     void setUp() {
+        // 使用Mockito mock()来做test double，即使用一个假TaskRepository作为替身，实现间接输出
         taskRepository = mock(TaskRepository.class);
     }
 
     @Test
     void should_compose_task_name_using_multiple_args() {
-        final AddCommand command = createCommand("add", "fizz", "buzz");
+        final AddCommand command = createCommand("fizz", "buzz");
 
         command.execute();
 
@@ -25,7 +26,7 @@ public class AddCommandTest {
 
     @Test
     void should_use_empty_name_when_noe_args_provided() {
-        final AddCommand command = createCommand("add");
+        final AddCommand command = createCommand();
 
         command.execute();
 
