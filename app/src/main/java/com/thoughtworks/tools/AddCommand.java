@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class AddCommand {
+class AddCommand {
     private final String[] args;
+    // Dependency injection (DI)
+    final TaskRepository taskRepository;
 
-    final TaskRepository taskRepository = new TaskRepository();
-
-    public AddCommand(String[] args) {
+    public AddCommand(TaskRepository taskRepository, String... args) {
         this.args = args;
+        this.taskRepository = taskRepository;
     }
 
     List<String> execute() {

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TaskRepository {
 
-    List<Task> loadTasks() {
+    List<Task> all() {
         final List<String> lines = readTaskLines();
         final List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
