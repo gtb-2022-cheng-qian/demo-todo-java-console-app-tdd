@@ -13,6 +13,7 @@ subprojects {
 
         // This dependency is used by the application.
         implementation 'com.google.guava:guava:29.0-jre'
+        testImplementation "org.mockito:mockito-core:3.+"
     }
 
     tasks.named('test') {

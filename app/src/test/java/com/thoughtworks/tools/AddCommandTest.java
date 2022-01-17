@@ -3,52 +3,37 @@ package com.thoughtworks.tools;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class AddCommandTest {
-    private MyTaskRepository taskRepository;
+    private TaskRepository taskRepository;
 
     @BeforeEach
     void setUp() {
-        taskRepository=new MyTaskRepository();
+        taskRepository = mock(TaskRepository.class);
     }
 
     @Test
     void should_compose_task_name_using_multiple_args() {
-        // 创建一个匿名内部类来传递一个假的TaskRepository, 管控间接输出
-//        final var taskRepository = new MyTaskRepository();
-        final var command = new AddCommand(taskRepository, "add", "fizz", "buzz");
+        final AddCommand command = createCommand("add", "fizz", "buzz");
 
         command.execute();
 
-        final var taskName = taskRepository.getTaskName();
-        assertEquals("fizz buzz", taskName);
+        verify(taskRepository).create(new Task(0, "fizz buzz", false));
     }
+
     @Test
     void should_use_empty_name_when_noe_args_provided() {
-        // 创建一个匿名内部类来传递一个假的TaskRepository
-//        final var taskRepository = new MyTaskRepository();
-        final var command = new AddCommand(taskRepository, "add");
+        final AddCommand command = createCommand("add");
 
         command.execute();
 
-        final var taskName = taskRepository.getTaskName();
-        assertEquals("", taskName);
+        verify(taskRepository).create(new Task(0, "", false));
     }
 
-    private static class MyTaskRepository extends TaskRepository {
-        private Task task;
-
-        @Override
-        List<String> create(Task task) {
-            this.task=task;
-            return List.of();
-        }
-
-        public String getTaskName(){
-           return this.task.getName();
-        }
+    private AddCommand createCommand(String... strings) {
+        return new AddCommand(taskRepository, strings);
     }
+
 }
