@@ -20,6 +20,9 @@ public class App {
         if (args[0].equals("add")) {
             return new AddCommand(new TaskRepository(), restArgs).execute();
         }
+        if (args[0].equals("remove")) {
+            return new RemoveCommand(new TaskRepository(), restArgs).execute();
+        }
         return new ListCommand().run();
     }
 

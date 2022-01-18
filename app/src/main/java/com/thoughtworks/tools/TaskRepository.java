@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskRepository {
 
@@ -16,12 +17,26 @@ public class TaskRepository {
         for (int i = 0; i < lines.size(); i++) {
             tasks.add(taskMarshaller.unmarshal(i + 1, lines.get(i)));//包括+和x标志
         }
-        return tasks;
+        return tasks.stream().filter(task -> !task.isDeleted()).collect(Collectors.toList());
     }
 
     List<String> readTaskLines() {
         try {
             return Files.readAllLines(Constants.TASK_FILE_PATH);
+        } catch (IOException e) {
+            throw new TodoException();
+        }
+    }
+
+    public void delete(int id) {
+        final var tasks = loadTasks();
+        tasks.stream().filter(task -> id == task.getId()).forEach(Task::delete);
+
+        try (var bw = Files.newBufferedWriter(Constants.TASK_FILE_PATH)) {
+           for (Task task : tasks){
+               bw.write(taskMarshaller.marshal(task));
+               bw.newLine();
+           }
         } catch (IOException e) {
             throw new TodoException();
         }
@@ -36,5 +51,4 @@ public class TaskRepository {
             throw new TodoException();
         }
     }
-
 }

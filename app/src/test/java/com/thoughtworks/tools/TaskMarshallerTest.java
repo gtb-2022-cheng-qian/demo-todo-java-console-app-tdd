@@ -19,7 +19,14 @@ class TaskMarshallerTest {
 
     @Test
     void should_marshal_to_plain_text() {
-        assertEquals("+ foo", taskMarshaller.marshal(new Task(1, "foo", false, false)));
+        assertEquals("+ + foo", taskMarshaller.marshal(new Task(1, "foo", false, false)));
+    }
+
+    @Test
+    void should_unmarshal_from_texts() {
+        assertEquals(new Task(1, "foo", true, false), taskMarshaller.unmarshal(1, "x + foo"));
+        assertEquals(new Task(1, "foo", false, true), taskMarshaller.unmarshal(1, "+ x foo"));
+        assertEquals(new Task(1, "foo", true, true), taskMarshaller.unmarshal(1, "x x foo"));
     }
 
     @Test
@@ -30,7 +37,7 @@ class TaskMarshallerTest {
 
     @Test
     void should_support_name_with_multiple_white_spaces() {
-        final var task = taskMarshaller.unmarshal(1, "+    foo   bar   ");
+        final var task = taskMarshaller.unmarshal(1, "+ +    foo   bar   ");
         assertEquals("   foo   bar   ",task.getName());
     }
 }

@@ -14,20 +14,21 @@ import java.util.List;
 
 class AppTest {
     private App app;
+
     @BeforeEach
     void setUp() {
         writeDataFile(List.of(
-                "+ task 01",
-                "+ task 02",
-                "x task 03",
-                "x task 04"));
+                "+ + task 01",
+                "+ + task 02",
+                "x + task 03",
+                "x + task 04"));
         app = new App();
     }
 
     @Nested
-    class ListCommand{
+    class ListCommand {
         @Nested
-        class WhenThereAreExistingTasks{
+        class WhenThereAreExistingTasks {
             @Test
             void should_list_existing_tasks() {
                 // integration test
@@ -48,9 +49,9 @@ class AppTest {
     }
 
     @Nested
-    class AddCommand{
+    class AddCommand {
         @Nested
-        class WhenSingleWordProvidedAsName{
+        class WhenSingleWordProvidedAsName {
             @Test
             void should_use_single_word_as_name() {
                 // AAA
@@ -74,7 +75,7 @@ class AppTest {
         }
 
         @Nested
-        class WhenMultipleWordProvidedAsName{
+        class WhenMultipleWordProvidedAsName {
             @Test
             void should_use_all_words_as_name() {
                 // AAA
@@ -90,6 +91,25 @@ class AppTest {
                                 "1 task 01",
                                 "2 task 02",
                                 "5 fizz buzz",
+                                "# Completed",
+                                "3 task 03",
+                                "4 task 04"),
+                        result);
+            }
+        }
+    }
+
+    @Nested
+    class RemoveCommand {
+        @Nested
+        class WhenRemoveSingleTask {
+            @Test
+            void should_remove_one_task() {
+                app.run("remove", "1");
+                final var result = app.run();
+                Assertions.assertEquals(List.of(
+                                "# To be done",
+                                "2 task 02",
                                 "# Completed",
                                 "3 task 03",
                                 "4 task 04"),

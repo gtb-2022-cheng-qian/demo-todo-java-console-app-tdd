@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Task {
     private final int id;
     private final String name;
-    private final boolean delete;
     public boolean isCompleted;
+    private boolean delete;
 
     public Task(int id, String name, boolean isCompleted, boolean isDeleted) {
         this.id = id;
@@ -52,5 +52,13 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, delete, isCompleted);
+    }
+
+    public boolean isDeleted() {
+        return this.delete;
+    }
+
+    public void delete() {
+        this.delete = true;
     }
 }
