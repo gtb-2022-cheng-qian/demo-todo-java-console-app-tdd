@@ -32,7 +32,7 @@ class AppTest {
                 // integration test
                 // Given
                 // When
-                final var result = app.run();
+                final var result = app.run("list");
                 // Then
                 Assertions.assertEquals(List.of(
                                 "# To be done",
@@ -59,7 +59,7 @@ class AppTest {
                 // When - Act
                 app.run("add", "foobar");
                 // Then - Assert
-                final var result = app.run();
+                final var result = app.run("list");
                 Assertions.assertEquals(List.of(
                                 "# To be done",
                                 "1 task 01",
@@ -83,7 +83,7 @@ class AppTest {
                 // When - Act
                 app.run("add", "fizz", "buzz");
                 // Then - Assert
-                final var result = app.run();
+                final var result = app.run("list");
                 Assertions.assertEquals(List.of(
                                 "# To be done",
                                 "1 task 01",
@@ -104,7 +104,7 @@ class AppTest {
             @Test
             void should_remove_one_task() {
                 app.run("remove", "1");
-                final var result = app.run();
+                final var result = app.run("list");
                 Assertions.assertEquals(List.of(
                                 "# To be done",
                                 "2 task 02",
@@ -120,7 +120,7 @@ class AppTest {
             @Test
             void should_remove_some_tasks() {
                 app.run("remove", "1", "3");
-                final var result = app.run();
+                final var result = app.run("list");
                 Assertions.assertEquals(List.of(
                                 "# To be done",
                                 "2 task 02",
