@@ -1,7 +1,7 @@
 package com.thoughtworks.tools;
 
-public class TaskFactory {
-    private TaskFactory() {
+public class TaskMarshaller {
+    private TaskMarshaller() {
     }
 
     static String marshal(Task task) {
