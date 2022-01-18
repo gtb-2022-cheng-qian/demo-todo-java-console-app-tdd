@@ -10,7 +10,10 @@ public class CommandFactory {
         final var commandName = args[0];
         final var restArgs = Arrays.copyOfRange(args, 1, args.length);
 
-        Command command = new ListCommand(repository);
+        Command command = new UnknownCommand(repository, commandName);
+        if (commandName.equals("list")) {
+            command = new ListCommand(repository);
+        }
         if (commandName.equals("add")) {
             command = new AddCommand(repository, restArgs);
         }
