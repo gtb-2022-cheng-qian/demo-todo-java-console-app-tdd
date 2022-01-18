@@ -8,11 +8,11 @@ import java.util.List;
 
 public class TaskRepository {
 
-    List<Task> all() {
+    List<Task> loadTasks() {
         final List<String> lines = readTaskLines();
         final List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
-            tasks.add(TaskFactory.createTask(i + 1, lines.get(i)));//包括+和x标志
+            tasks.add(TaskFactory.unmarshal(i + 1, lines.get(i)));//包括+和x标志
         }
         return tasks;
     }
@@ -26,12 +26,13 @@ public class TaskRepository {
     }
 
     public void create(Task task) {
-        final var taskName = task.getName();
         try (var bw = Files.newBufferedWriter(Constants.TASK_FILE_PATH, StandardOpenOption.APPEND)) {
-            bw.write("+ " + taskName);
+            final String line = TaskFactory.marshal(task);
+            bw.write(line);
             bw.newLine();
         } catch (IOException e) {
             throw new TodoException();
         }
     }
+
 }
