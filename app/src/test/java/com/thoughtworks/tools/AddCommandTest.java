@@ -36,5 +36,4 @@ public class AddCommandTest {
     private AddCommand createCommand(String... strings) {
         return new AddCommand(taskRepository, strings);
     }
-
 }

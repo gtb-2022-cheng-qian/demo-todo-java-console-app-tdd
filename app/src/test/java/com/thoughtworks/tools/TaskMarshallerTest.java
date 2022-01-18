@@ -1,10 +1,12 @@
 package com.thoughtworks.tools;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TaskFactoryTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+class TaskMarshallerTest {
 
     private TaskMarshaller taskMarshaller;
 
@@ -14,15 +16,21 @@ public class TaskFactoryTest {
     }
 
     // Unit test
+
+    @Test
+    void should_marshal_to_plain_text() {
+        assertEquals("+ foo", taskMarshaller.marshal(new Task(1, "foo", false)));
+    }
+
     @Test
     void should_parse_completed_property_for_task() {
         final var isCompleted = taskMarshaller.unmarshal(1, "+ task 01").isCompleted();
-        Assertions.assertFalse(isCompleted);
+        assertFalse(isCompleted);
     }
 
     @Test
     void should_support_name_with_multiple_white_spaces() {
         final var task = taskMarshaller.unmarshal(1, "+    foo   bar   ");
-        Assertions.assertEquals("   foo   bar   ",task.getName());
+        assertEquals("   foo   bar   ",task.getName());
     }
 }
