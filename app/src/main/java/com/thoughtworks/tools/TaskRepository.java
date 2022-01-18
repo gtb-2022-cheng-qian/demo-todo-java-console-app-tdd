@@ -12,11 +12,7 @@ public class TaskRepository {
     private final TaskMarshaller taskMarshaller = new TaskMarshaller();
 
     List<Task> loadTasks() {
-        final List<String> lines = readTaskLines();
-        final List<Task> tasks = new ArrayList<>();
-        for (int i = 0; i < lines.size(); i++) {
-            tasks.add(taskMarshaller.unmarshal(i + 1, lines.get(i)));//包括+和x标志
-        }
+        final List<Task> tasks = loadAllTasks();
         return tasks.stream().filter(task -> !task.isDeleted()).collect(Collectors.toList());
     }
 
@@ -29,7 +25,7 @@ public class TaskRepository {
     }
 
     public void delete(int id) {
-        final var tasks = loadTasks();
+        final var tasks = loadAllTasks();
         tasks.stream().filter(task -> id == task.getId()).forEach(Task::delete);
 
         try (var bw = Files.newBufferedWriter(Constants.TASK_FILE_PATH)) {
@@ -40,6 +36,15 @@ public class TaskRepository {
         } catch (IOException e) {
             throw new TodoException();
         }
+    }
+
+    private List<Task> loadAllTasks() {
+        final List<String> lines = readTaskLines();
+        final List<Task> tasks = new ArrayList<>();
+        for (int i = 0; i < lines.size(); i++) {
+            tasks.add(taskMarshaller.unmarshal(i + 1, lines.get(i)));//包括+和x标志
+        }
+        return tasks;
     }
 
     public void create(Task task) {

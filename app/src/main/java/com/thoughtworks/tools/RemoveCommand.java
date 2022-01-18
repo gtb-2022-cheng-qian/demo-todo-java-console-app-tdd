@@ -1,10 +1,11 @@
 package com.thoughtworks.tools;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class RemoveCommand {
-    private TaskRepository taskRepository;
-    private String[] args;
+    private final TaskRepository taskRepository;
+    private final String[] args;
 
     public RemoveCommand(TaskRepository taskRepository, String... args) {
         this.taskRepository = taskRepository;
@@ -12,7 +13,7 @@ public class RemoveCommand {
     }
 
     public List<String> execute() {
-        this.taskRepository.delete(Integer.parseInt(args[0]));
+        Stream.of(args).map(Integer::valueOf).forEach(this.taskRepository::delete);
         return List.of();
     }
 }
