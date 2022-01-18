@@ -19,7 +19,7 @@ class TaskMarshallerTest {
 
     @Test
     void should_marshal_to_plain_text() {
-        assertEquals("+ foo", taskMarshaller.marshal(new Task(1, "foo", false)));
+        assertEquals("+ foo", taskMarshaller.marshal(new Task(1, "foo", false, false)));
     }
 
     @Test

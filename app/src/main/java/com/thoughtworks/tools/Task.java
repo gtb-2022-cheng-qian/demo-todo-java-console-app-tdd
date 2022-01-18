@@ -5,12 +5,14 @@ import java.util.Objects;
 public class Task {
     private final int id;
     private final String name;
+    private final boolean delete;
     public boolean isCompleted;
 
-    public Task(int id, String name, boolean isCompleted) {
+    public Task(int id, String name, boolean isCompleted, boolean isDeleted) {
         this.id = id;
         this.name = name;
         this.isCompleted = isCompleted;
+        this.delete = isDeleted;
     }
 
     public int getId() {
@@ -29,8 +31,14 @@ public class Task {
         return isCompleted;
     }
 
+    @Override
     public String toString() {
-        return id + " " + isCompleted + " " + name;
+        return "Task{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", delete=" + delete +
+                ", isCompleted=" + isCompleted +
+                '}';
     }
 
     @Override
@@ -38,11 +46,11 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id && isCompleted == task.isCompleted && name.equals(task.name);
+        return id == task.id && delete == task.delete && isCompleted == task.isCompleted && name.equals(task.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, isCompleted);
+        return Objects.hash(id, name, delete, isCompleted);
     }
 }

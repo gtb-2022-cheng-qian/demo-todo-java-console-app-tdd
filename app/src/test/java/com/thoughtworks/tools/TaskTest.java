@@ -15,8 +15,8 @@ class TaskTest {
         class should_return_true{
             @Test
             void when_all_properties_are_same(){
-                assertEquals(new Task(1,"foo",false),new Task(1,"foo",false));
-                assertEquals(new Task(1,"foo",true),new Task(1,"foo",true));
+                assertEquals(new Task(1,"foo",false, false),new Task(1,"foo",false, false));
+                assertEquals(new Task(1,"foo",true, false),new Task(1,"foo",true, false));
             }
         }
 
@@ -24,9 +24,9 @@ class TaskTest {
         class should_return_false{
             @Test
             void when_at_least_one_property_is_not_same(){
-                assertNotEquals(new Task(1,"foo",false),new Task(2,"foo",false));
-                assertNotEquals(new Task(1,"bar",true),new Task(1,"foo",true));
-                assertNotEquals(new Task(1,"foo",false),new Task(1,"foo",true));
+                assertNotEquals(new Task(1,"foo",false, false),new Task(2,"foo",false, false));
+                assertNotEquals(new Task(1,"bar",true, false),new Task(1,"foo",true, false));
+                assertNotEquals(new Task(1,"foo",false, false),new Task(1,"foo",true, false));
             }
         }
     }
