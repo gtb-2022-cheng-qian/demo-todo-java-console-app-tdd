@@ -1,8 +1,6 @@
 package com.thoughtworks.tools;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class AddCommand {
     private final String[] args;
@@ -16,7 +14,8 @@ class AddCommand {
 
     List<String> execute() {
         final var taskName = String.join(" ", args);
-        return taskRepository.create(new Task(0, taskName, false));
+        taskRepository.create(new Task(0, taskName, false));
+        return List.of();
     }
 
 }

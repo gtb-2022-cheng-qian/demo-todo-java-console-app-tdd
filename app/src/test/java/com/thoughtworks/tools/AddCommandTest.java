@@ -11,7 +11,7 @@ public class AddCommandTest {
 
     @BeforeEach
     void setUp() {
-        // 使用Mockito mock()来做test double，即使用一个假TaskRepository作为替身，实现间接输出
+        // 使用Mockito mock()来做test double(测试提升)，即使用一个假TaskRepository作为替身，实现间接输出
         taskRepository = mock(TaskRepository.class);
     }
 

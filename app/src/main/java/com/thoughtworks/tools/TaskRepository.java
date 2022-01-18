@@ -25,7 +25,7 @@ public class TaskRepository {
         }
     }
 
-    List<String> create(Task task) {
+    public void create(Task task) {
         final var taskName = task.getName();
         try (var bw = Files.newBufferedWriter(Constants.TASK_FILE_PATH, StandardOpenOption.APPEND)) {
             bw.write("+ " + taskName);
@@ -33,6 +33,5 @@ public class TaskRepository {
         } catch (IOException e) {
             throw new TodoException();
         }
-        return List.of();
     }
 }
